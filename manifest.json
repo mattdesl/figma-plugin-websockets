@@ -1,0 +1,10 @@
+{
+  "name": "LocalWebsockets",
+  "id": "1243616542221478810",
+  "api": "1.0.0",
+  "main": "dist/plugin.js",
+  "capabilities": [],
+  "enableProposedApi": false,
+  "editorType": ["figma"],
+  "ui": "src/ui.html"
+}

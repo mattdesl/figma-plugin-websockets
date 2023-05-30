@@ -1,0 +1,21 @@
+{
+  "name": "figma-plugin-websockets",
+  "version": "1.0.0",
+  "description": "a figma plugin proof of concept",
+  "main": "src/server.js",
+  "type": "module",
+  "scripts": {
+    "plugin:dev": "esbuild src/plugin.js --bundle --outfile=dist/plugin.js --format=iife --watch",
+    "build": "esbuild src/plugin.js --bundle --outfile=dist/plugin.js --format=iife"
+  },
+  "author": "Matt DesLauriers",
+  "license": "MIT",
+  "dependencies": {
+    "seed-random": "^2.2.0",
+    "@parcel/watcher": "^2.1.0",
+    "canvas-sketch-util": "^1.10.0",
+    "esbuild": "^0.17.19",
+    "express": "^4.18.2",
+    "ws": "^8.13.0"
+  }
+}

@@ -1,0 +1,56 @@
+<script>
+  window.onload = () => {
+    let socket;
+    connect();
+    function connect() {
+      const protocol = /^https\:$/i.test(window.location.protocol)
+        ? "wss"
+        : "ws";
+      const hostname = "localhost";
+      const port = 19407;
+      const uri = `${protocol}://${hostname}:${port}/livereload`;
+      socket = new WebSocket(uri);
+      socket.onmessage = (m) => {
+        let evt;
+        try {
+          evt = JSON.parse(m.data);
+        } catch (err) {
+          return console.error(err);
+        }
+        handleEvent(evt);
+      };
+      socket.onerror = (e) => {
+        parent.postMessage(
+          {
+            pluginMessage: {
+              type: "error",
+              reason: `Could not connect to websocket - is the Node server running?`,
+            },
+          },
+          "*"
+        );
+      };
+      socket.onclose = () => {
+        parent.postMessage(
+          {
+            pluginMessage: {
+              type: "disconnect",
+              reason: `Node server disconnected`,
+            },
+          },
+          "*"
+        );
+      };
+      return socket;
+    }
+  };
+
+  function handleEvent(evt) {
+    parent.postMessage(
+      {
+        pluginMessage: evt,
+      },
+      "*"
+    );
+  }
+</script>
