@@ -2,6 +2,8 @@
 
 A proof of concept connecting a Node.js server to Figma via local websockets. This allows for certain applications like live-coding JavaScript and piping the results to a Figma renderer, allowing for some interesting generative workflows.
 
+See [this teaser video](https://twitter.com/mattdesl/status/1661877697533059074).
+
 How it works:
 
 1. A Node.js server is opened at a specific port on localhost.
@@ -53,13 +55,13 @@ Now you can edit the `src/plugin.js` file and it will create a new `dist/plugin.
 
 ## Limitations
 
-There are a couple of annoying limitations in the Figma plugin ecosystem that make this a little difficult:
-
-- When a plugin is running without a UI, you cannot send actions to it except through a single button in the notification message (currently used for dice roll).
+The main trouble is that evaluating the script has to happen in the main thread, which exposes some problems around debugging (error logging, lack of source maps, memory leaks) and security.
 
 ## Security Implications
 
 There may be some security implications by opening a websocket on localhost and communicating with Figma in this way. Feel free to open an issue if you think you could describe a scenario that might lead to a problem for the user.
+
+In addition to potential risks of exposing your local system to Figma, there may be a case where you are running some untrusted code in your user script (whether directly or without realizing it, such as a third-party dependency you have imported), and it does something nefarious with the `figma` global variable that exists due to the script running in Figma's main thread.
 
 ## License
 
