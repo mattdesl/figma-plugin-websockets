@@ -49,6 +49,8 @@ const reDraw = (useOldSeed = true) => {
   }
 
   try {
+    // TODO: Fix dice roll on subsequent hashing
+
     const curCode = curState ? curState.code : "";
     const src = `const module = {
 id: ".",
@@ -174,7 +176,7 @@ async function run() {
       if (!connected) {
         firstConnect();
       }
-      reDraw();
+      reDraw(true);
     }
   };
 }

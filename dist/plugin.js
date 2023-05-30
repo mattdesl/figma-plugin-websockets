@@ -802,7 +802,7 @@ return _program_;`;
         if (!connected) {
           firstConnect();
         }
-        reDraw();
+        reDraw(true);
       }
     };
   }
